@@ -11,13 +11,17 @@
 					"commands": ["cd nuxt && clear"]
 				},
 				{
-					"name": "remix",
-					"commands": ["cd remix && clear"]
+					"name": "react",
+					"commands": ["cd react && clear"]
 				}
 			]
 		},
 		{
 			"splitTerminals": [
+				{
+					"name": "remix",
+					"commands": ["cd remix && clear"]
+				},
 				{
 					"name": "solidstart",
 					"commands": ["cd solidstart && clear"]
