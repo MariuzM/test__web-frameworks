@@ -1,0 +1,32 @@
+{
+	"restoreTerminals.terminals": [
+		{
+			"splitTerminals": [
+				{
+					"name": "next",
+					"commands": ["cd next && clear"]
+				},
+				{
+					"name": "nuxt",
+					"commands": ["cd nuxt && clear"]
+				},
+				{
+					"name": "remix",
+					"commands": ["cd remix && clear"]
+				}
+			]
+		},
+		{
+			"splitTerminals": [
+				{
+					"name": "solidstart",
+					"commands": ["cd solidstart && clear"]
+				},
+				{
+					"name": "sveltekit",
+					"commands": ["cd sveltekit && clear"]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,13 @@
+.DS_Store
+.env
+.env*.local
+.next
+.nuxt
+.output
+.solid
+.svelte-kit
+.vercel
+.vinxi
+build
+dist
+node_modules
