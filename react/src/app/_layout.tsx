@@ -8,9 +8,10 @@ export const HomeLayout = () => {
 			<div className="flex gap-4">
 				{routes[0].children?.map((route) => (
 					<NavLink
-						className={(p) => (p.isActive ? 'bg-red-200' : p.isPending ? 'pending' : '')}
+						className={({ isActive }) => (isActive ? 'bg-red-200' : '')}
 						key={route.path}
 						to={route.path}
+						end
 					>
 						{route.path === '/' ? 'Home' : route.path.replace('/', '')}
 					</NavLink>
