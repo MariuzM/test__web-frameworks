@@ -11,8 +11,10 @@
 		"lint": "eslint ."
 	},
 	"dependencies": {
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1",
+		"babel-plugin-react-compiler": "latest",
+		"eslint-plugin-react-compiler": "latest",
+		"react": "next",
+		"react-dom": "next",
 		"react-router": "^7.0.0-pre.0"
 	},
 	"devDependencies": {
