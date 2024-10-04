@@ -1,7 +1,7 @@
 import './styles/main.style.css'
 
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router'
 
 import { Home } from './app'
 import { ErrorPage } from './app/_error'
@@ -26,6 +26,18 @@ export const routes = [
 
 createRoot(document.getElementById('root')!).render(
 	// <StrictMode>
-	<RouterProvider router={createBrowserRouter(routes)} />,
+	<RouterProvider
+		router={createBrowserRouter(routes, {
+			future: {
+				// v7_relativeSplatPath: true,
+				v7_normalizeFormMethod: true,
+				v7_partialHydration: true,
+			},
+		})}
+		//  TODO for now TS is broken for this
+		// future={{
+		// 	v7_startTransition: true,
+		// }}
+	/>,
 	// </StrictMode>,
 )
