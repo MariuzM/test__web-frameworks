@@ -3,6 +3,8 @@ import { NavLink } from 'react-router'
 const NAV = [
 	{ to: '/', label: 'Home' },
 	{ to: '/about', label: 'About' },
+	{ to: '/admin', label: 'Admin' },
+	{ to: '/admin/about', label: 'Admin About' },
 ]
 
 export const Nav = () => {

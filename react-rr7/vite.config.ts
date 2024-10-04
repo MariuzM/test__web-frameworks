@@ -8,7 +8,7 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		reactRouter({
-			appDirectory: 'app',
+			// appDirectory: 'app',
 			// async prerender() {
 			// 	return ['/', '/about', '/contact']
 			// },
