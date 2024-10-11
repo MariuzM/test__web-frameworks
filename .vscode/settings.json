@@ -11,8 +11,12 @@
 					"commands": ["cd nuxt && clear"]
 				},
 				{
-					"name": "react",
-					"commands": ["cd react && clear"]
+					"name": "react-rr7",
+					"commands": ["cd react-rr7 && clear"]
+				},
+				{
+					"name": "react-spa",
+					"commands": ["cd react-spa && clear"]
 				}
 			]
 		},
