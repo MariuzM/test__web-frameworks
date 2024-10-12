@@ -8,6 +8,7 @@ import { ErrorPage } from './app/_error'
 import { HomeLayout } from './app/_layout'
 import { About } from './app/about'
 import { Admin } from './app/admin'
+import { AdminLayout } from './app/admin/_layout'
 import { AdminAbout } from './app/admin/about'
 
 export const routes = [
@@ -18,6 +19,12 @@ export const routes = [
 		children: [
 			{ path: '/', element: <Home /> },
 			{ path: '/about', element: <About /> },
+		],
+	},
+	{
+		path: '/admin',
+		element: <AdminLayout />,
+		children: [
 			{ path: '/admin', element: <Admin /> },
 			{ path: '/admin/about', element: <AdminAbout /> },
 		],
