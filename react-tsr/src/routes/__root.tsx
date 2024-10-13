@@ -4,21 +4,11 @@ export const Route = createRootRoute({
 	component: Root,
 })
 
-const NAV = [
-	{ to: '/', label: 'Home' },
-	{ to: '/about', label: 'About' },
-	{ to: '/contact', label: 'Contact' },
-	{ to: '/admin', label: 'Admin' },
-	{ to: '/admin/settings', label: 'Admin Settings' },
-
-	{ to: '/test', label: 'Test' },
-	{ to: '/test/about', label: 'Test About' },
-]
-
 const GROUP_NAV = [
 	[
 		{ to: '/test', label: 'Test' },
 		{ to: '/test/about', label: 'About' },
+		{ to: '/test/user/about', label: 'User About' },
 	],
 	[
 		{ to: '/test2', label: 'Test2' },
