@@ -32,6 +32,10 @@ const GROUP_NAV = [
 		{ to: '/test4/auth', label: 'Test4' },
 		{ to: '/test4/auth/about', label: 'About' },
 	],
+	[
+		{ to: '/test5', label: 'Test5' },
+		{ to: '/test5/about', label: 'About' },
+	],
 ]
 
 function Root() {
