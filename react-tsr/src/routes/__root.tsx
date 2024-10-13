@@ -10,16 +10,42 @@ const NAV = [
 	{ to: '/contact', label: 'Contact' },
 	{ to: '/admin', label: 'Admin' },
 	{ to: '/admin/settings', label: 'Admin Settings' },
+
+	{ to: '/test', label: 'Test' },
+	{ to: '/test/about', label: 'Test About' },
+]
+
+const GROUP_NAV = [
+	[
+		{ to: '/test', label: 'Test' },
+		{ to: '/test/about', label: 'About' },
+	],
+	[
+		{ to: '/test2', label: 'Test2' },
+		{ to: '/test2/about', label: 'About' },
+	],
+	[
+		{ to: '/test3', label: 'Test3' },
+		{ to: '/test3/about', label: 'About' },
+	],
+	[
+		{ to: '/test4/auth', label: 'Test4' },
+		{ to: '/test4/auth/about', label: 'About' },
+	],
 ]
 
 function Root() {
 	return (
 		<>
-			<div className="flex gap-4 p-2 text-lg">
-				{NAV.map(({ to, label }) => (
-					<Link key={to} to={to} activeProps={{ className: 'text-red-500' }}>
-						{label}
-					</Link>
+			<div className="flex gap-10 p-2 text-lg">
+				{GROUP_NAV.map((group, i) => (
+					<div key={i} className="flex flex-col gap-2 bg-gray-600">
+						{group.map(({ to, label }) => (
+							<Link key={to} to={to} activeProps={{ className: 'text-red-500' }}>
+								- {label}
+							</Link>
+						))}
+					</div>
 				))}
 			</div>
 			<hr />
