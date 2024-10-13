@@ -13,9 +13,15 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as ContactImport } from './routes/contact'
 import { Route as AboutImport } from './routes/about'
+import { Route as AppImport } from './routes/_app'
 import { Route as IndexImport } from './routes/index'
+import { Route as TestIndexImport } from './routes/test/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
+import { Route as TestAboutImport } from './routes/test/about'
 import { Route as AdminSettingsImport } from './routes/admin/settings'
+import { Route as AppAppImport } from './routes/_app/app'
+import { Route as TestUserAboutImport } from './routes/test/user.about'
+import { Route as AppAppAboutImport } from './routes/_app/app.about'
 
 // Create/Update Routes
 
@@ -29,8 +35,18 @@ const AboutRoute = AboutImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AppRoute = AppImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TestIndexRoute = TestIndexImport.update({
+  path: '/test/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,9 +55,29 @@ const AdminIndexRoute = AdminIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const TestAboutRoute = TestAboutImport.update({
+  path: '/test/about',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AdminSettingsRoute = AdminSettingsImport.update({
   path: '/admin/settings',
   getParentRoute: () => rootRoute,
+} as any)
+
+const AppAppRoute = AppAppImport.update({
+  path: '/app',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const TestUserAboutRoute = TestUserAboutImport.update({
+  path: '/test/user/about',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AppAppAboutRoute = AppAppAboutImport.update({
+  path: '/about',
+  getParentRoute: () => AppAppRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -53,6 +89,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppImport
       parentRoute: typeof rootRoute
     }
     '/about': {
@@ -69,11 +112,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactImport
       parentRoute: typeof rootRoute
     }
+    '/_app/app': {
+      id: '/_app/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppAppImport
+      parentRoute: typeof AppImport
+    }
     '/admin/settings': {
       id: '/admin/settings'
       path: '/admin/settings'
       fullPath: '/admin/settings'
       preLoaderRoute: typeof AdminSettingsImport
+      parentRoute: typeof rootRoute
+    }
+    '/test/about': {
+      id: '/test/about'
+      path: '/test/about'
+      fullPath: '/test/about'
+      preLoaderRoute: typeof TestAboutImport
       parentRoute: typeof rootRoute
     }
     '/admin/': {
@@ -83,59 +140,161 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexImport
       parentRoute: typeof rootRoute
     }
+    '/test/': {
+      id: '/test/'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/_app/app/about': {
+      id: '/_app/app/about'
+      path: '/about'
+      fullPath: '/app/about'
+      preLoaderRoute: typeof AppAppAboutImport
+      parentRoute: typeof AppAppImport
+    }
+    '/test/user/about': {
+      id: '/test/user/about'
+      path: '/test/user/about'
+      fullPath: '/test/user/about'
+      preLoaderRoute: typeof TestUserAboutImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
+interface AppAppRouteChildren {
+  AppAppAboutRoute: typeof AppAppAboutRoute
+}
+
+const AppAppRouteChildren: AppAppRouteChildren = {
+  AppAppAboutRoute: AppAppAboutRoute,
+}
+
+const AppAppRouteWithChildren =
+  AppAppRoute._addFileChildren(AppAppRouteChildren)
+
+interface AppRouteChildren {
+  AppAppRoute: typeof AppAppRouteWithChildren
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAppRoute: AppAppRouteWithChildren,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '': typeof AppRouteWithChildren
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/app': typeof AppAppRouteWithChildren
   '/admin/settings': typeof AdminSettingsRoute
+  '/test/about': typeof TestAboutRoute
   '/admin': typeof AdminIndexRoute
+  '/test': typeof TestIndexRoute
+  '/app/about': typeof AppAppAboutRoute
+  '/test/user/about': typeof TestUserAboutRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '': typeof AppRouteWithChildren
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/app': typeof AppAppRouteWithChildren
   '/admin/settings': typeof AdminSettingsRoute
+  '/test/about': typeof TestAboutRoute
   '/admin': typeof AdminIndexRoute
+  '/test': typeof TestIndexRoute
+  '/app/about': typeof AppAppAboutRoute
+  '/test/user/about': typeof TestUserAboutRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/_app/app': typeof AppAppRouteWithChildren
   '/admin/settings': typeof AdminSettingsRoute
+  '/test/about': typeof TestAboutRoute
   '/admin/': typeof AdminIndexRoute
+  '/test/': typeof TestIndexRoute
+  '/_app/app/about': typeof AppAppAboutRoute
+  '/test/user/about': typeof TestUserAboutRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/admin/settings' | '/admin'
+  fullPaths:
+    | '/'
+    | ''
+    | '/about'
+    | '/contact'
+    | '/app'
+    | '/admin/settings'
+    | '/test/about'
+    | '/admin'
+    | '/test'
+    | '/app/about'
+    | '/test/user/about'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/admin/settings' | '/admin'
-  id: '__root__' | '/' | '/about' | '/contact' | '/admin/settings' | '/admin/'
+  to:
+    | '/'
+    | ''
+    | '/about'
+    | '/contact'
+    | '/app'
+    | '/admin/settings'
+    | '/test/about'
+    | '/admin'
+    | '/test'
+    | '/app/about'
+    | '/test/user/about'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/about'
+    | '/contact'
+    | '/_app/app'
+    | '/admin/settings'
+    | '/test/about'
+    | '/admin/'
+    | '/test/'
+    | '/_app/app/about'
+    | '/test/user/about'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
+  TestAboutRoute: typeof TestAboutRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  TestIndexRoute: typeof TestIndexRoute
+  TestUserAboutRoute: typeof TestUserAboutRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   AdminSettingsRoute: AdminSettingsRoute,
+  TestAboutRoute: TestAboutRoute,
   AdminIndexRoute: AdminIndexRoute,
+  TestIndexRoute: TestIndexRoute,
+  TestUserAboutRoute: TestUserAboutRoute,
 }
 
 export const routeTree = rootRoute
@@ -151,14 +310,24 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/_app",
         "/about",
         "/contact",
         "/admin/settings",
-        "/admin/"
+        "/test/about",
+        "/admin/",
+        "/test/",
+        "/test/user/about"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/_app": {
+      "filePath": "_app.tsx",
+      "children": [
+        "/_app/app"
+      ]
     },
     "/about": {
       "filePath": "about.tsx"
@@ -166,11 +335,31 @@ export const routeTree = rootRoute
     "/contact": {
       "filePath": "contact.tsx"
     },
+    "/_app/app": {
+      "filePath": "_app/app.tsx",
+      "parent": "/_app",
+      "children": [
+        "/_app/app/about"
+      ]
+    },
     "/admin/settings": {
       "filePath": "admin/settings.tsx"
     },
+    "/test/about": {
+      "filePath": "test/about.tsx"
+    },
     "/admin/": {
       "filePath": "admin/index.tsx"
+    },
+    "/test/": {
+      "filePath": "test/index.tsx"
+    },
+    "/_app/app/about": {
+      "filePath": "_app/app.about.tsx",
+      "parent": "/_app/app"
+    },
+    "/test/user/about": {
+      "filePath": "test/user.about.tsx"
     }
   }
 }

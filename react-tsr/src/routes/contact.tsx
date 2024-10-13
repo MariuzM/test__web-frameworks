@@ -7,7 +7,7 @@ export const Route = createFileRoute('/contact')({
 function Contact() {
 	return (
 		<div className="p-2">
-			<h3>Contact</h3>
+			<h3>Home Contact</h3>
 		</div>
 	)
 }
