@@ -21,6 +21,7 @@ import { Route as Test5IndexImport } from './routes/test5/index'
 import { Route as Test3IndexImport } from './routes/test3/index'
 import { Route as TestIndexImport } from './routes/test/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
+import { Route as Test8TsqImport } from './routes/test8/tsq'
 import { Route as Test7SearchImport } from './routes/test7/search'
 import { Route as Test6IdImport } from './routes/test6/$id'
 import { Route as Test5AboutImport } from './routes/test5/about'
@@ -90,6 +91,11 @@ const TestIndexRoute = TestIndexImport.update({
 
 const AdminIndexRoute = AdminIndexImport.update({
   path: '/admin/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const Test8TsqRoute = Test8TsqImport.update({
+  path: '/test8/tsq',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -272,6 +278,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Test7SearchImport
       parentRoute: typeof rootRoute
     }
+    '/test8/tsq': {
+      id: '/test8/tsq'
+      path: '/test8/tsq'
+      fullPath: '/test8/tsq'
+      preLoaderRoute: typeof Test8TsqImport
+      parentRoute: typeof rootRoute
+    }
     '/admin/': {
       id: '/admin/'
       path: '/admin'
@@ -420,6 +433,7 @@ export interface FileRoutesByFullPath {
   '/test5/about': typeof Test5AboutRoute
   '/test6/$id': typeof Test6IdRoute
   '/test7/search': typeof Test7SearchRoute
+  '/test8/tsq': typeof Test8TsqRoute
   '/admin': typeof AdminIndexRoute
   '/test': typeof TestIndexRoute
   '/test3/': typeof Test3IndexRoute
@@ -443,6 +457,7 @@ export interface FileRoutesByTo {
   '/test5/about': typeof Test5AboutRoute
   '/test6/$id': typeof Test6IdRoute
   '/test7/search': typeof Test7SearchRoute
+  '/test8/tsq': typeof Test8TsqRoute
   '/admin': typeof AdminIndexRoute
   '/test': typeof TestIndexRoute
   '/test5': typeof Test5IndexRoute
@@ -469,6 +484,7 @@ export interface FileRoutesById {
   '/test5/about': typeof Test5AboutRoute
   '/test6/$id': typeof Test6IdRoute
   '/test7/search': typeof Test7SearchRoute
+  '/test8/tsq': typeof Test8TsqRoute
   '/admin/': typeof AdminIndexRoute
   '/test/': typeof TestIndexRoute
   '/test3/': typeof Test3IndexRoute
@@ -496,6 +512,7 @@ export interface FileRouteTypes {
     | '/test5/about'
     | '/test6/$id'
     | '/test7/search'
+    | '/test8/tsq'
     | '/admin'
     | '/test'
     | '/test3/'
@@ -518,6 +535,7 @@ export interface FileRouteTypes {
     | '/test5/about'
     | '/test6/$id'
     | '/test7/search'
+    | '/test8/tsq'
     | '/admin'
     | '/test'
     | '/test5'
@@ -542,6 +560,7 @@ export interface FileRouteTypes {
     | '/test5/about'
     | '/test6/$id'
     | '/test7/search'
+    | '/test8/tsq'
     | '/admin/'
     | '/test/'
     | '/test3/'
@@ -566,6 +585,7 @@ export interface RootRouteChildren {
   Test4AuthRoute: typeof Test4AuthRouteWithChildren
   Test6IdRoute: typeof Test6IdRoute
   Test7SearchRoute: typeof Test7SearchRoute
+  Test8TsqRoute: typeof Test8TsqRoute
   AdminIndexRoute: typeof AdminIndexRoute
   TestIndexRoute: typeof TestIndexRoute
   TestUserAboutRoute: typeof TestUserAboutRoute
@@ -583,6 +603,7 @@ const rootRouteChildren: RootRouteChildren = {
   Test4AuthRoute: Test4AuthRouteWithChildren,
   Test6IdRoute: Test6IdRoute,
   Test7SearchRoute: Test7SearchRoute,
+  Test8TsqRoute: Test8TsqRoute,
   AdminIndexRoute: AdminIndexRoute,
   TestIndexRoute: TestIndexRoute,
   TestUserAboutRoute: TestUserAboutRoute,
@@ -611,6 +632,7 @@ export const routeTree = rootRoute
         "/test4/auth",
         "/test6/$id",
         "/test7/search",
+        "/test8/tsq",
         "/admin/",
         "/test/",
         "/test/user/about"
@@ -684,6 +706,9 @@ export const routeTree = rootRoute
     },
     "/test7/search": {
       "filePath": "test7/search.tsx"
+    },
+    "/test8/tsq": {
+      "filePath": "test8/tsq.tsx"
     },
     "/admin/": {
       "filePath": "admin/index.tsx"
