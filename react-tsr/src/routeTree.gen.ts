@@ -11,174 +11,77 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as AdminRouteImport } from './routes/admin/route'
-import { Route as HomeRouteImport } from './routes/_home.route'
-import { Route as AdminIndexImport } from './routes/admin/index'
-import { Route as HomeIndexImport } from './routes/_home.index'
-import { Route as HomeAboutImport } from './routes/_home.about'
-import { Route as AdminTableIndexImport } from './routes/admin/$table/index'
+import { Route as AboutImport } from './routes/about'
+import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
-const AdminRouteRoute = AdminRouteImport.update({
-  path: '/admin',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const HomeRouteRoute = HomeRouteImport.update({
-  id: '/_home',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AdminIndexRoute = AdminIndexImport.update({
-  path: '/',
-  getParentRoute: () => AdminRouteRoute,
-} as any)
-
-const HomeIndexRoute = HomeIndexImport.update({
-  path: '/',
-  getParentRoute: () => HomeRouteRoute,
-} as any)
-
-const HomeAboutRoute = HomeAboutImport.update({
+const AboutRoute = AboutImport.update({
   path: '/about',
-  getParentRoute: () => HomeRouteRoute,
+  getParentRoute: () => rootRoute,
 } as any)
 
-const AdminTableIndexRoute = AdminTableIndexImport.update({
-  path: '/$table/',
-  getParentRoute: () => AdminRouteRoute,
+const IndexRoute = IndexImport.update({
+  path: '/',
+  getParentRoute: () => rootRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_home': {
-      id: '/_home'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof HomeRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/_home/about': {
-      id: '/_home/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof HomeAboutImport
-      parentRoute: typeof HomeRouteImport
-    }
-    '/_home/': {
-      id: '/_home/'
+    '/': {
+      id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof HomeIndexImport
-      parentRoute: typeof HomeRouteImport
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
     }
-    '/admin/': {
-      id: '/admin/'
-      path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexImport
-      parentRoute: typeof AdminRouteImport
-    }
-    '/admin/$table/': {
-      id: '/admin/$table/'
-      path: '/$table'
-      fullPath: '/admin/$table'
-      preLoaderRoute: typeof AdminTableIndexImport
-      parentRoute: typeof AdminRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutImport
+      parentRoute: typeof rootRoute
     }
   }
 }
 
 // Create and export the route tree
 
-interface HomeRouteRouteChildren {
-  HomeAboutRoute: typeof HomeAboutRoute
-  HomeIndexRoute: typeof HomeIndexRoute
-}
-
-const HomeRouteRouteChildren: HomeRouteRouteChildren = {
-  HomeAboutRoute: HomeAboutRoute,
-  HomeIndexRoute: HomeIndexRoute,
-}
-
-const HomeRouteRouteWithChildren = HomeRouteRoute._addFileChildren(
-  HomeRouteRouteChildren,
-)
-
-interface AdminRouteRouteChildren {
-  AdminIndexRoute: typeof AdminIndexRoute
-  AdminTableIndexRoute: typeof AdminTableIndexRoute
-}
-
-const AdminRouteRouteChildren: AdminRouteRouteChildren = {
-  AdminIndexRoute: AdminIndexRoute,
-  AdminTableIndexRoute: AdminTableIndexRoute,
-}
-
-const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
-  AdminRouteRouteChildren,
-)
-
 export interface FileRoutesByFullPath {
-  '': typeof HomeRouteRouteWithChildren
-  '/admin': typeof AdminRouteRouteWithChildren
-  '/about': typeof HomeAboutRoute
-  '/': typeof HomeIndexRoute
-  '/admin/': typeof AdminIndexRoute
-  '/admin/$table': typeof AdminTableIndexRoute
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
 }
 
 export interface FileRoutesByTo {
-  '/about': typeof HomeAboutRoute
-  '/': typeof HomeIndexRoute
-  '/admin': typeof AdminIndexRoute
-  '/admin/$table': typeof AdminTableIndexRoute
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/_home': typeof HomeRouteRouteWithChildren
-  '/admin': typeof AdminRouteRouteWithChildren
-  '/_home/about': typeof HomeAboutRoute
-  '/_home/': typeof HomeIndexRoute
-  '/admin/': typeof AdminIndexRoute
-  '/admin/$table/': typeof AdminTableIndexRoute
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/admin' | '/about' | '/' | '/admin/' | '/admin/$table'
+  fullPaths: '/' | '/about'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/' | '/admin' | '/admin/$table'
-  id:
-    | '__root__'
-    | '/_home'
-    | '/admin'
-    | '/_home/about'
-    | '/_home/'
-    | '/admin/'
-    | '/admin/$table/'
+  to: '/' | '/about'
+  id: '__root__' | '/' | '/about'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  HomeRouteRoute: typeof HomeRouteRouteWithChildren
-  AdminRouteRoute: typeof AdminRouteRouteWithChildren
+  IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  HomeRouteRoute: HomeRouteRouteWithChildren,
-  AdminRouteRoute: AdminRouteRouteWithChildren,
+  IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
 }
 
 export const routeTree = rootRoute
@@ -193,39 +96,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/_home",
-        "/admin"
+        "/",
+        "/about"
       ]
     },
-    "/_home": {
-      "filePath": "_home.route.tsx",
-      "children": [
-        "/_home/about",
-        "/_home/"
-      ]
+    "/": {
+      "filePath": "index.tsx"
     },
-    "/admin": {
-      "filePath": "admin/route.tsx",
-      "children": [
-        "/admin/",
-        "/admin/$table/"
-      ]
-    },
-    "/_home/about": {
-      "filePath": "_home.about.tsx",
-      "parent": "/_home"
-    },
-    "/_home/": {
-      "filePath": "_home.index.tsx",
-      "parent": "/_home"
-    },
-    "/admin/": {
-      "filePath": "admin/index.tsx",
-      "parent": "/admin"
-    },
-    "/admin/$table/": {
-      "filePath": "admin/$table/index.tsx",
-      "parent": "/admin"
+    "/about": {
+      "filePath": "about.tsx"
     }
   }
 }
