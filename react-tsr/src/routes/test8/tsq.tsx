@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NextUIProvider, Pagination } from '@nextui-org/react'
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+import { keepPreviousData, QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const queryClient = new QueryClient()
@@ -23,13 +23,22 @@ const fetchData = async (page: number) => {
 
 const Tsq = () => {
 	const [page, setPage] = useState(1)
-	const { data } = useQuery({ queryKey: ['posts', page], queryFn: () => fetchData(page) })
+	const { data, isLoading } = useQuery({
+		queryKey: ['posts', page],
+		queryFn: () => fetchData(page),
+		placeholderData: keepPreviousData,
+	})
+
 	console.log('🚀 ~ data:', data?.pages)
 
 	return (
 		<div>
 			<p>TSQ page</p>
-			{data?.pages && <Pagination total={data.pages} initialPage={1} onChange={setPage} />}
+
+			{data?.pages && (
+				<Pagination total={data.pages} page={page} initialPage={1} onChange={setPage} />
+			)}
+
 			<pre>{JSON.stringify(data, null, 2)}</pre>
 		</div>
 	)
